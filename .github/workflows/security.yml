@@ -50,6 +50,7 @@ jobs:
             zap-full-scan.py \
             -t http://127.0.0.1:5000/api/users \
             -I \
+            -l INFO \
             -r zap_report.html
 
       - name: Upload security reports
