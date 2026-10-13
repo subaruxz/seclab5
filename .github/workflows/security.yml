@@ -44,14 +44,16 @@ jobs:
 
       - name: Run OWASP ZAP
         run: |
+          mkdir -p zap-output
+          chmod 777 zap-output
           docker run --rm --network host \
-            -v "$PWD:/zap/wrk/:rw" \
+            -v "$PWD/zap-output:/zap/wrk/:rw" \
             ghcr.io/zaproxy/zaproxy:stable \
             zap-full-scan.py \
             -t http://127.0.0.1:5000/api/users \
             -I \
-            -l INFO \
             -r zap_report.html
+          cp zap-output/zap_report.html zap_report.html
 
       - name: Upload security reports
         if: always()
